@@ -16,42 +16,111 @@ module.exports = function(grunt) {
       all: [
         'Gruntfile.js',
         'tasks/*.js',
-        '<%= nodeunit.tests %>',
+        '<%= nodeunit.tests %>'
       ],
       options: {
-        jshintrc: '.jshintrc',
+        jshintrc: '.jshintrc'
       },
     },
 
     // Before generating any new files, remove any previously-created files.
     clean: {
-      tests: ['tmp'],
+      tests: ['tmp']
     },
 
     // Configuration to be run (and then tested).
     http_verify: {
-      default_options: {
-        options: {
-        },
-        files: {
-          'tmp/default_options': ['test/fixtures/testing', 'test/fixtures/123'],
-        },
+      statusCode: {
+        url: 'http://www.gruntjs.com',
+        conditions: [
+          {
+            type: 'statusCode'
+          }
+        ],
+        callback: function(err){
+          grunt.file.write('tmp/statusCode', (!err)  ? 200 : err);
+        }
       },
-      custom_options: {
-        options: {
-          separator: ': ',
-          punctuation: ' !!!',
+
+      statusCodeNotFound: {
+        url: 'http://www.gruntjs.com/notfound',
+        conditions: {
+          type: 'statusCode',
+          value: 404
         },
-        files: {
-          'tmp/custom_options': ['test/fixtures/testing', 'test/fixtures/123'],
-        },
+        callback: function(err) {
+          grunt.file.write('tmp/statusCodeNotFound', (!err) ? 404 : err);
+        }
       },
+
+      statusCodeFailure: {
+        url: 'http://www.gruntjs.com/notfound',
+        conditions: {
+          type: 'statusCode',
+          value: 200
+        },
+        callback: function(err) {
+          grunt.file.write('tmp/statusCodeFailure', (!err) ? 200 : err);
+        }
+      },
+
+      bodyContains: {
+        url: 'http://www.gruntjs.com',
+        conditions: {
+          type: 'body',
+          operator: 'contains',
+          value: 'grunt'
+        },
+        callback: function(err) {
+          grunt.file.write('tmp/bodyContains', (!err) ? 'true' : err);
+        }
+      },
+
+      headerExists: {
+        url: 'http://www.gruntjs.com',
+        conditions: {
+          type: 'header',
+          operator: 'exists',
+          nameValue: 'date'
+        },
+        callback: function(err) {
+          grunt.file.write('tmp/headerExists', (!err) ? 'true' : err);
+        }
+      },
+
+      headerContains: {
+        url: 'http://www.gruntjs.com',
+        conditions: [
+          {
+            type: 'header',
+            operator: 'contains',
+            nameValue: 'date',
+            value: 'GMT'
+          }
+        ],
+        callback: function(err) {
+          grunt.file.write('tmp/headerContains', (!err) ? 'true' : err);
+        }
+      },
+
+      headerEquals: {
+        url: 'http://www.gruntjs.com',
+        conditions: {
+          type: 'header',
+          operator: 'equals',
+          nameValue: 'connection',
+          value: 'keep-alive'
+        },
+        callback: function(err) {
+          grunt.file.write('tmp/headerEquals', (!err) ? 'true' : err);
+        }
+      }
     },
 
     // Unit tests.
     nodeunit: {
-      tests: ['test/*_test.js'],
-    },
+      tests: ['test/*_test.js']
+    }
 
   });
 

@@ -27,22 +27,55 @@ exports.http_verify = {
     // setup here if necessary
     done();
   },
-  default_options: function(test) {
+
+  statusCode: function(test) {
     test.expect(1);
 
-    var actual = grunt.file.read('tmp/default_options');
-    var expected = grunt.file.read('test/expected/default_options');
-    test.equal(actual, expected, 'should describe what the default behavior is.');
+    var actual = grunt.file.read('tmp/statusCode');
+    test.equal(actual, 200, 'expected 200, received ' + actual);
 
     test.done();
   },
-  custom_options: function(test) {
+
+  statusCodeNotFound: function(test) {
     test.expect(1);
-
-    var actual = grunt.file.read('tmp/custom_options');
-    var expected = grunt.file.read('test/expected/custom_options');
-    test.equal(actual, expected, 'should describe what the custom option(s) behavior is.');
-
+    var actual = grunt.file.read('tmp/statusCodeNotFound');
+    test.equal(actual, 404, 'expected 404, received ' + actual);
     test.done();
   },
+
+  statusCodeFailure: function(test) {
+    test.expect(1);
+    var actual = grunt.file.read('tmp/statusCodeFailure');
+    test.equal(actual, 'statusCode received 404', 'expected 404, received ' + actual);
+    test.done();
+  },
+
+  bodyContains: function(test) {
+    test.expect(1);
+    var actual = grunt.file.read('tmp/bodyContains');
+    test.equal(actual, 'true', 'expected true, found ' + actual);
+    test.done();
+  },
+
+  headerExists: function(test) {
+    test.expect(1);
+    var actual = grunt.file.read('tmp/headerExists');
+    test.equal(actual, 'true', 'expected true, found ' + actual);
+    test.done();
+  },
+
+  headerContains: function(test) {
+    test.expect(1);
+    var actual = grunt.file.read('tmp/headerContains');
+    test.equal(actual, 'true', 'expected true, found ' + actual);
+    test.done();
+  },
+
+  headerEquals: function(test) {
+    test.expect(1);
+    var actual = grunt.file.read('tmp/headerEquals');
+    test.equal(actual, 'true', 'expected true, found ' + actual);
+    test.done();
+  }
 };
