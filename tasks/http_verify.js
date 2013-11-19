@@ -102,7 +102,7 @@ module.exports = function(grunt) {
       if (task.data.callback) {
         task.data.callback.call(task, conditionsMet ? null : result);
       }
-      done();
+      done(conditionsMet);
     }); // end request
   }); // end task
 
