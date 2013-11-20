@@ -1,7 +1,7 @@
 {
   "name": "grunt-http-verify",
   "description": "Send an HTTP request and verify part(s) of the response.",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "homepage": "https://github.com/skrenek/grunt-http-verify",
   "author": {
     "name": "Steve Krenek",
@@ -32,7 +32,8 @@
     "grunt-contrib-clean": "~0.4.0",
     "grunt-contrib-nodeunit": "~0.2.0",
     "grunt": "~0.4.1",
-    "request": "~2.27.0"
+    "request": "~2.27.0",
+    "http-verify": "~0.1.0"
   },
   "peerDependencies": {
     "grunt": "~0.4.1"
