@@ -21,6 +21,9 @@
     }
   ],
   "main": "Gruntfile.js",
+  "dependencies": {
+    "http-verify": "^0.2.0"
+  },
   "engines": {
     "node": ">= 0.8.0"
   },
